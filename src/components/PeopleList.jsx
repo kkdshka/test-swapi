@@ -39,7 +39,7 @@ export const PeopleList = ({people}) => {
     }
 
     return <div>
-        <Typography variant={"h3"} align={"center"}>Characters List</Typography>
+        <Typography variant={"h3"} align={"center"}>Characters List: {people.length}</Typography>
         <List>
             {people.map(person => renderPerson(person))}
         </List>

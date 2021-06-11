@@ -4,12 +4,6 @@ import { CircularProgress } from "@material-ui/core";
 import {peopleUrls, starshipsUrls, speciesUrls} from "./utils/urls";
 import {fetchUrls, preparePeopleData, notEmpty} from "./utils/helpers";
 
-const initialFilters = {
-    movie: "",
-    species: "",
-    rangeOfYears: ""
-}
-
 export default function App() {
     const [people, setPeople] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -38,12 +32,9 @@ export default function App() {
         }
     }, [people, starships, species])
 
-    const [filters, setFilters] = useState(initialFilters);
-    const [filteredPeople, setFilteredPeople] = useState([])
-
     return (
         <div>
-            {loading ? <CircularProgress/> : <Main people={preparedPeopleData} setPeople={setFilteredPeople}/>}
+            {loading ? <CircularProgress/> : <Main people={preparedPeopleData} species={species}/>}
         </div>
     )
 }
