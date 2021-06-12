@@ -9,20 +9,24 @@ import {
     Typography,
 } from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
-import {Droppable, Draggable} from 'react-beautiful-dnd';
+import {Droppable} from "react-beautiful-dnd";
 
 const useStyles = makeStyles({
     listItem: {
         width: "100%"
-    }
+    },
 });
 
-export const PeopleList = ({people}) => {
+const getListStyle = isDraggingOver => ({
+    background: isDraggingOver && "lightblue",
+    minHeight: "100vh"
+});
+
+export const Favorites = ({people}) => {
     const classes = useStyles();
 
     const renderPerson = (person, id) => {
-        return <Draggable key={person.name} draggableId={person.name} index={id}>
-            {(provided) => (<ListItem  className={classes.listItem} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+        return <ListItem className={classes.listItem} key={`favorites-${id}`}>
             <Accordion className={classes.listItem}>
                 <AccordionSummary>
                     <Typography variant={"h5"}>{person.name}</Typography>
@@ -37,19 +41,17 @@ export const PeopleList = ({people}) => {
                 </AccordionDetails>
             </Accordion>
         </ListItem>
-            )}
-        </Draggable>
     }
 
     return <div>
-        <Typography variant={"h3"} align={"center"}>Characters List: {people.length}</Typography>
-        <Droppable droppableId={"people"}>
-            {(provided) => (
-                <List {...provided.droppableProps} ref={provided.innerRef}>
+        <Typography variant={"h3"} align={"center"}>Favorites</Typography>
+        <Droppable droppableId="favorites">
+            {(provided, snapshot) => (
+                <List style={getListStyle(snapshot.isDraggingOver)} {...provided.droppableProps} ref={provided.innerRef}>
                     {people.map((person, index) => renderPerson(person, index))}
                     {provided.placeholder}
                 </List>
-                )}
+            )}
         </Droppable>
     </div>
 }

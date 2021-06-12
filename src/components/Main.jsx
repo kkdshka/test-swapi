@@ -1,12 +1,7 @@
 import React, {useState, useEffect} from "react";
-import {PeopleList} from "./PeopleList";
 import {Filter} from './Filter';
-import {Grid, Typography} from "@material-ui/core";
-// import { makeStyles } from "@material-ui/styles";
-
-// const useStyles = makeStyles({
-//
-// });
+import {Grid} from "@material-ui/core";
+import {DraggableList} from "./DraggableLists";
 
 const initialFilters = {
     film: "",
@@ -33,12 +28,7 @@ export const Main = ({people, species}) => {
         <Grid item xs={12}>
             <Filter filters={filters} setFilters={setFilters} allSpecies={species}/>
         </Grid>
-        <Grid item xs={6}>
-            {filteredPeople ? <PeopleList people={filteredPeople}/> : <PeopleList people={people}/>}
-        </Grid>
-        <Grid item xs={6}>
-            <Typography variant={"h3"} align={"center"}>Favorites</Typography>
-        </Grid>
+        <DraggableList people={people} filteredPeople={filteredPeople}/>
     </Grid>
 
 }
