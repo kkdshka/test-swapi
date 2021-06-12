@@ -1,5 +1,5 @@
-import React from "react";
-import {FormControl, InputLabel, Select, Grid} from "@material-ui/core";
+import React, {useState} from "react";
+import {FormControl, InputLabel, Select, Grid, Slider} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -12,6 +12,7 @@ const useStyles = makeStyles({
 export const Filter = ({filters, setFilters, allSpecies}) => {
     const classes = useStyles();
     const {movie, species} = filters;
+    const [yearRange, setYearRange] = useState([0, 1000])
 
     const handleMovieChange = (event) => {
         const film = event.target.value;
@@ -23,15 +24,23 @@ export const Filter = ({filters, setFilters, allSpecies}) => {
         setFilters({...filters, species: specie});
     };
 
-    const renderSpeciesOptions = () => {
+    const handleYearsChange = (event, newValue) => {
+        setYearRange(newValue);
+        setFilters({...filters, yearRange: yearRange})
+    };
 
+    const renderSpeciesOptions = () => {
         return allSpecies.map((specie, index) => {
             return <option value={String(specie.name)} key={"specie" + index}>{specie.name}</option>
         })
     };
 
+    const yearText = (value) => {
+        return `${value} BBY`;
+    }
+
     return <Grid container direction={"row"}>
-        <Grid item xs={4}>
+        <Grid item xs={2}>
             <FormControl className={classes.formControl}>
                 <InputLabel>Movie</InputLabel>
                 <Select native value={movie} onChange={handleMovieChange}>
@@ -45,13 +54,27 @@ export const Filter = ({filters, setFilters, allSpecies}) => {
                 </Select>
             </FormControl>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={2}>
             <FormControl className={classes.formControl}>
                 <InputLabel>Specie</InputLabel>
                 <Select native value={species} onChange={handleSpecieChange}>
                     <option value={""}/>
                     {renderSpeciesOptions()}
                 </Select>
+            </FormControl>
+        </Grid>
+        <Grid item xs={4}>
+            <FormControl className={classes.formControl}>
+                <InputLabel>BBY Year range</InputLabel>
+            <Slider
+                value={yearRange}
+                onChangeCommitted={handleYearsChange}
+                aria-labelledby="range-slider"
+                getAriaValueText={yearText}
+                max={1000}
+                valueLabelDisplay="on"
+                style={{width: '60vw'}}
+            />
             </FormControl>
         </Grid>
     </Grid>

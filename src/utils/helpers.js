@@ -32,7 +32,8 @@ export const preparePeopleData = (people, starships, species, setPeople) => {
             name: person.name,
             species: getPersonSpecie(person),
             starships: getPersonStarships(person),
-            films: getPersonFilms(person)
+            films: getPersonFilms(person),
+            birthYear: person.birth_year
         }
     });
     setPeople(preparedPeopleData);
@@ -48,4 +49,8 @@ export async function fetchUrls (urls) {
 
 export const notEmpty = (array) => {
     return array.length > 0;
+}
+
+export const yearConverter = (year) => {
+    return Number(year.replace(/\D+/g,""));
 }

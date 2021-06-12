@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 });
 
 const getListStyle = isDraggingOver => ({
-    background: isDraggingOver && "lightblue",
+    background: isDraggingOver && "lightgrey",
     minHeight: "100vh"
 });
 

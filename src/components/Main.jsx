@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import {Filter} from './Filter';
 import {Grid} from "@material-ui/core";
 import {DraggableList} from "./DraggableLists";
+import {yearConverter} from "../utils/helpers";
 
 const initialFilters = {
     film: "",
@@ -9,10 +10,15 @@ const initialFilters = {
     rangeOfYears: ""
 }
 
+const isInRange = (number, range) => {
+    return number >= range[0] && number <= range[1];
+};
+
 const filterPeople = (people, filters) => {
     return people.filter((person) => {
         return (filters.film ? person.films.includes(filters.film) : true)
-        && (filters.species ? person.species.includes(filters.species) : true);
+        && (filters.species ? person.species.includes(filters.species) : true)
+        && (filters.yearRange ? isInRange(yearConverter(person.birthYear), filters.yearRange) : true);
     });
 }
 
