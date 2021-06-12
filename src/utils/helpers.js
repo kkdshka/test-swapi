@@ -50,7 +50,3 @@ export async function fetchUrls (urls) {
 export const notEmpty = (array) => {
     return array.length > 0;
 }
-
-export const yearConverter = (year) => {
-    return Number(year.replace(/\D+/g,""));
-}
