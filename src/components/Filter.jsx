@@ -58,7 +58,7 @@ export const Filter = ({filters, setFilters, allSpecies}) => {
     };
 
     return <Grid container direction={"row"} alignItems={"center"}>
-        <Grid item xs={2}>
+        <Grid item xs={3}>
             <FormControl className={classes.formControl}>
                 <InputLabel>Movie</InputLabel>
                 <Select native value={movie} onChange={handleMovieChange}>
@@ -72,7 +72,7 @@ export const Filter = ({filters, setFilters, allSpecies}) => {
                 </Select>
             </FormControl>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={3}>
             <FormControl className={classes.formControl}>
                 <InputLabel>Specie</InputLabel>
                 <Select native value={species} onChange={handleSpecieChange}>
@@ -81,19 +81,23 @@ export const Filter = ({filters, setFilters, allSpecies}) => {
                 </Select>
             </FormControl>
         </Grid>
-        <Grid item xs={2} className={classes.formControl}>
-            <TextField type={"number"} label={'Start'} onChange={handleStartChange}/>
-            <Select native onChange={handleStartEraChange}>
-                <option value={"BBY"}>BBY</option>
-                <option value={"ABY"} disabled={yearRange.endEra === "BBY"}>ABY</option>
-            </Select>
+        <Grid item container direction={"column"} xs={2} className={classes.formControl}>
+            <Grid item><TextField type={"number"} label={'Start'} onChange={handleStartChange}/></Grid>
+            <Grid item>
+                <Select native onChange={handleStartEraChange}>
+                    <option value={"BBY"}>BBY</option>
+                    <option value={"ABY"} disabled={yearRange.endEra === "BBY"}>ABY</option>
+                </Select>
+            </Grid>
         </Grid>
-        <Grid item xs={2} className={classes.formControl}>
-            <TextField type={"number"} label={'End'} onChange={handleEndChange}/>
-            <Select native onChange={handleEndEraChange}>
-                <option value={"ABY"}>ABY</option>
-                <option value={"BBY"} disabled={yearRange.startEra === "ABY"}>BBY</option>
-            </Select>
+        <Grid item container direction={"column"} xs={2} className={classes.formControl}>
+            <Grid item><TextField type={"number"} label={'End'} onChange={handleEndChange}/></Grid>
+            <Grid item>
+                <Select native onChange={handleEndEraChange}>
+                    <option value={"ABY"}>ABY</option>
+                    <option value={"BBY"} disabled={yearRange.startEra === "ABY"}>BBY</option>
+                </Select>
+            </Grid>
         </Grid>
     </Grid>
 };
